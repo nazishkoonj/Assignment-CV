@@ -1,0 +1,41 @@
+ #importing libraries
+   
+       import os
+       import face_recognition
+
+ #list of all images available
+  
+       images = os.listdir('images')
+       
+
+ #loading my image
+   
+        my_image = face_recognition.load_image_file('my_image.jpg')
+
+ # encode feature vector of loaded image
+    
+        my_image_encoded = face_recognition.face_encodings('my_image')[0]
+
+ #loop for iteration of each image
+       
+        for image in images:
+ 
+ #load image
+    
+        current_image = face_recognition.load_image_file("images/" + image)
+ 
+ #encode loaded image into feature vector
+      
+        current_image_encoded = face_recognition.face_encodings(current_image)[0]
+ 
+ #matching images with my_image
+       
+        result = face_recognition.compare_faces(
+        [my_image_encoded], current_image_encoded)
+ 
+ #check if it matches or not
+        
+        if result[0] == True:
+        print ("Found: " + image)
+    else:
+        print ("Not Found: " + image)
